@@ -2,10 +2,12 @@ from flask import Flask,render_template,session,redirect,request
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+import os
 import json
 app = Flask(__name__)
 app.secret_key = 'fjjUs8*jd8{@]d'
-cred = credentials.Certificate("C:\\Users\\hdoub\\Downloads\\private-server-ab543-firebase-adminsdk-fbsvc-8f5a4e61e3.json")
+cred = credentials.Certificate(json.loads(os.environ.get('ps')))
+#cred = credentials.Certificate("C:\\Users\\hdoub\\Downloads\\private-server-ab543-firebase-adminsdk-fbsvc-8f5a4e61e3.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
