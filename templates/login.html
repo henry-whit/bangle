@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
+    <title>Sign in to your account</title>
+</head>
+<body>
+    <header>
+        <div class="il">
+            <img height="30px" src="{{url_for('static',filename='gr.png')}}" alt="Bangel logo">
+            <h2>Bangle</h2>
+        </div>
+        <nav>
+            <a href="/signup">Sign up</a>
+            <a href="/login">Login</a>
+        </nav>
+    </header>
+    <div class="main">
+        <h1>Sign in to your account</h1>
+        <form action="/login" method="post">
+            <label for="email">Email</label>
+            <input name="email" type="email" value required>
+            <label for="password">Password</label>
+            <input name="password" type="password" value required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>

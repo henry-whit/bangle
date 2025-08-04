@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='editor.css')}}">
+    <title>FirstPage editing</title>
+</head>
+<body>
+    <header>
+        <div class="il">
+            <img height="30px" src="{{url_for('static',filename='gr.png')}}" alt="Bangel logo">
+            <h2>Bangle</h2>
+        </div>
+        <nav>
+            <a href="/library">Library</a>
+            <a href="/account">{{ user }}</a>
+        </nav>
+    </header>
+    <div class="main">
+        <div class="topbar">
+            <h2 style= "color:#ffd700;">{{ title }}</h2>
+            <div><button onclick="copy()">Copy url</button></div>
+            <div><button onclick="del()" style = 'color:red;'>Delete</button></div>
+        </div>
+        <div class="editor">
+            <div class="code">
+                <div class="buttons">
+                    <button onclick = "clr()">Clear</button>
+                    <button onclick="save()">Save</button>
+                    <button style = "border-right: none;" onclick="run()">Run</button>
+                </div>
+                <div id="editor">{{ code }}</div>
+            </div>
+            <iframe id="output"></iframe>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js"></script>
+    <script src="{{url_for('static',filename='editor.js')}}"></script>
+    <script>
+        function copy(){
+            navigator.clipboard.writeText("{{ url }}")
+        }
+    </script>
+</body>
+</html>

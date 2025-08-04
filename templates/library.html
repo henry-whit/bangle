@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
+    <title>Bangle library</title>
+</head>
+<body>
+    <header>
+        <div class="il">
+            <img height="30px" src="{{url_for('static',filename='gr.png')}}" alt="Bangel logo">
+            <h2>Bangle</h2>
+        </div>
+        <nav>
+            <a href="/library">Library</a>
+            <a class = "account" href="">{{user}}</a>
+            <a href="/logout">Sign out</a>
+        </nav>
+    </header>
+    <div class="main">
+        <h1>Bangles</h1>
+        <div style = 'margin-left:auto; margin-right:auto;' onclick="document.getElementById('new').style.display='flex'"><button>New bangle</button></div>
+        <div id = 'bgs' class="bangles"></div>
+    </div>
+    <form action="/makesite" id="new" method="post">
+        <div>
+            <h2>New bangle</h2>
+            <button onclick="document.getElementById('new').style.display='none'">Close</button>
+        </div>
+        <label for="bn">Name</label>
+        <input maxlength="20" name="bn" type="text" value required>
+        <label for="desc">Description</label>
+        <input maxlength="40" type="text" name = "desc" value required>
+        <label for="chk">Submit to the display board(home page)</label>
+        <input type="checkbox" name = "chk">
+        <button type="submit">Create</button>
+    </form>
+    <script>
+        let bgs = "{{bangles}}";
+        bgs = JSON.parse(bgs.replace(/&#39;/g, '"'));
+        console.log(bgs);
+        function addBangles(){
+            for(const b in bgs){
+                const mc = document.createElement('div');
+                const idv = document.createElement('div');
+                idv.style.marginLeft = 'auto';
+                idv.style.marginRight = 'auto';
+                const img = document.createElement('img');
+                img.style.height = '150px';
+                img.style.width = '150px';
+                img.src = "{{url_for('static',filename='bangel.png')}}";
+                idv.appendChild(img);
+                const tt = document.createElement('p');
+                tt.textContent = bgs[b];
+                mc.appendChild(idv);
+                mc.appendChild(tt);
+                mc.onclick = function(){
+                    location.href = `http://localhost:5000/edit/${bgs[b]}`;
+                }
+                document.getElementById('bgs').appendChild(mc);
+            }
+        }
+        window.onload = addBangles;
+    </script>
+</body>
+</html>

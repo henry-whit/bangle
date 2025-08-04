@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='home.css')}}">
+    <title>Home-Bangle</title>
+</head>
+<body>
+    <header>
+        <div class="il">
+            <img height="30px" src="{{url_for('static',filename='gr.png')}}" alt="Bangel logo">
+            <h2>Bangle</h2>
+        </div>
+        <nav>
+            <a href="/library">Library</a>
+            <a href="/account">{{ user }}</a>
+            <a href="/logout">Sign out</a>
+        </nav>
+    </header>
+    <div class="main">
+        <h1>Recent bangles</h1>
+        <p>Bangles are small codebases where you can run code and collaborate with others.</p>
+        <div class="rc">
+            <div class="recent" id = "rct"></div>
+            <div class="ct"><a class="btt" href="/library/bangles">All bangles</a></div>
+        </div>
+        <h1>Quick start</h1>
+        <div class="quickstart">
+            <div id="collab">
+                <h2>New collab</h2>
+                <p>Collaborate with another user on a project.</p>
+            </div>
+            <div id = "collab">
+                <h2>New Basic</h2>
+                <p>A basic HTML project with free hosting, forever.</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        let bgs = "{{bangles}}";
+        bgs = JSON.parse(bgs.replace(/&#39;/g, '"'));
+        for(const ban of bgs){
+            const dv = document.createElement('div');
+            const imd = document.createElement('div');
+            const img = document.createElement('img');
+            img.src = "{{url_for('static',filename='bangel.png')}}";
+            img.style.width = '150px';
+            img.style.height = '150px';
+            const st = document.createElement('p');
+            st.textContent = ban;
+            imd.appendChild(img);
+            dv.appendChild(imd);
+            dv.appendChild(st);
+            document.getElementById('rct').appendChild(dv);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+body{
+    margin:0;
+    background:#1C1C1C;
+    font-family:helvetica;
+}
+.main{
+    display:flex;
+    flex-direction: column;
+}
+h1,h2,h3{
+    color:#ffd700;
+    text-align:center;
+}
+p,label{
+    color:white;
+    text-align:center;
+}
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px white solid;
+    padding:5px;
+}
+.il{
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+header a{
+    text-decoration: none;
+    color:white;
+    font-size:22px;
+    margin:5px;
+}
+.info p{
+    margin:30px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+}
+form input{
+    width:250px;
+    height:25px;
+    background:#000C29;
+    color:white;
+    border:1px white solid;
+    font-size:16px;
+    margin:5px;
+}
+form button{
+    cursor:pointer;
+    background:#000C29;
+    color:#ffd700;
+    font-size:18px;
+    border:1px white solid;
+}
+.bangles{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    width:800px;
+    margin-left: auto;
+    margin-right:auto;
+}
+.bangles div{
+    border:1px white solid;
+    background:#000C29;
+    margin:10px;
+    cursor:pointer;
+}
+.bangles div p{
+    border-top:1px white solid;
+    background: #000C29;
+    font-size:20px;
+}
+.bangles div div{
+    border:none;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+div button{
+    font-size:18px;
+    background:#000C29;
+    color:white;
+    border:1px white solid;
+    cursor:pointer;
+    margin:10px;
+}
+#new{
+    position:absolute;
+    top:35vh;
+    left:42.5vw;
+    z-index:100;
+    background:#1C1C1C;
+    border:1px white solid;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#new div{
+    display:flex;
+    gap:20px;
+}

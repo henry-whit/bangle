@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
+    <title>Bangle</title>
+</head>
+<body>
+    <header>
+        <div class="il">
+            <img height="30px" src="{{url_for('static',filename='gr.png')}}" alt="Bangle logo">
+            <h2>Bangle</h2>
+        </div>
+        <nav id = "la">
+            <a href="/library">Library</a>
+            <a href="/account">{{user}}</a>
+            <a href="/logout">Sign out</a>
+        </nav>
+        <nav id = "sl" style = "display:none;">
+            <a href="/signup">Sign up</a>
+            <a href="/login">Login</a>
+        </nav>
+    </header>
+    <div class="cta">
+        <img src="" alt="" class="logo">
+        <h1>Bangle</h1>
+        <p>Bangle is a completely free code editing and web hosting service, that allows people to make and host html, without having to set up a costly system.</p>
+    </div>
+    <div class = "info">
+        <h1>Why choose Bangle?</h1>
+        <p>Bangle has always been free, which makes it a great option for sharing a small project, or hosting a website.</p>
+        <p>Bangle's code editor lets you see your site in real time, which is helpful for debugging or getting a UI just right.</p>
+        <p>With one click of a button, you can share and control access to your source code, great for collaborators. Just invite someone to your project by typing in their email!</p>
+    </div>
+    <script>
+        function checkS(){
+            if ("{{ logged }}" === false){
+                console.log('logged in')
+            } else{
+                document.getElementById('sl').style.display = 'block';
+                document.getElementById('la').style.display = 'none';
+            }
+        }
+        window.onload = checkS();
+    </script>
+</body>
+</html>
