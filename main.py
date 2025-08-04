@@ -73,7 +73,7 @@ def edit(bg):
     user = db.collection('Users').document(session.get("username")).collection('Projects').document(bg).get().to_dict()
     if user:
         session['project'] = bg
-        return render_template('editor.html',user=session.get("username"),code=user["code"],title=bg,url=f"http://localhost:5000/sites/{session.get('username')}/{bg}")
+        return render_template('editor.html',user=session.get("username"),code=user["code"],title=bg,url=f"https://bangle-app-fxgs.onrender.com/sites/{session.get('username')}/{bg}")
     return 'Error: no such site'
 
 #get a public site ✅

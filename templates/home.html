@@ -52,6 +52,10 @@
             imd.appendChild(img);
             dv.appendChild(imd);
             dv.appendChild(st);
+            dv.style.cursor = 'pointer';
+            dv.onclick = function(){
+                location.href = `https://bangle-app-fxgs.onrender.com/edit/${ban}`
+            }
             document.getElementById('rct').appendChild(dv);
         }
     </script>
