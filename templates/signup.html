@@ -23,7 +23,8 @@
             <label for="email">Email</label>
             <input name="email" type="email" value required>
             <label for="password">Password</label>
-            <input name="password" type="password" value required>
+            <input id = 'pass' name="password" type="password" value required>
+            <button onclick="navigator.clipboard.writeText(document.getElementById('pass').value)">Copy password</button>
             <button type="submit">Sign up</button>
         </form>
     </div>
