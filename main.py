@@ -123,5 +123,10 @@ def delete():
     proj = db.collection('Users').document(session.get('username')).collection('Projects').document(session.get('project'))
     proj.delete()
     return redirect('/library')
+@app.route('/account')
+def account():
+    if not session.get('username'):
+        return redirect('/login')
+    return 'work in progress...'
 if __name__ == '__main__':
     app.run()
