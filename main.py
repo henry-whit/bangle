@@ -23,9 +23,7 @@ def main():
 def home():
     if not session.get('username'):
         return redirect('/login')
-    if not session.get('username'):
-        return redirect('/login')
-    lb = db.collection('Users').document(session.get('username')).collection('Projects').get()
+    lb = db.collection('Users').document(session.get('email')).collection('Projects').get()
     bangles = []
     for item in lb:
         bangles.append(item.id)
@@ -41,7 +39,7 @@ def signup():
     user = db.collection('Users').document(request.form.get('email').lower())
     if user.get().to_dict():
         return {"message":"Email in use"}
-    user.set({"password":request.form.get('password')})
+    user.set({"name":request.form.get('dsp'),"password":request.form.get('password')})
     return redirect('/login')
 
 #log out ✅
@@ -61,7 +59,8 @@ def login():
     if not user:
         return redirect('/login')
     if user['password'] == request.form.get('password'):
-        session["username"] = request.form.get('email')
+        session["username"] = user["name"]
+        session["email"] = request.form.get('email')
         return redirect('/home')
     return redirect('/login')
 
@@ -70,7 +69,7 @@ def login():
 def edit(bg):
     if not session.get('username'):
         return redirect('/login')
-    user = db.collection('Users').document(session.get("username")).collection('Projects').document(bg).get().to_dict()
+    user = db.collection('Users').document(session.get("email")).collection('Projects').document(bg).get().to_dict()
     if user:
         session['project'] = bg
         return render_template('editor.html',user=session.get("username"),code=user["code"],title=bg,url=f"https://bangle-app-fxgs.onrender.com/sites/{session.get('username')}/{bg}")
@@ -91,7 +90,7 @@ def add():
         return redirect('/login')
     if not session.get('project'):
         return {"message":"sync error. try copying your code and refreshing the page."}
-    project = db.collection('Users').document(session.get('username')).collection('Projects').document(session.get('project'))
+    project = db.collection('Users').document(session.get('email')).collection('Projects').document(session.get('project'))
     if not project.get().to_dict():
         return {"message":"sync error: copy your code and reload the page."}
     project.set({"code":request.get_json().get('code')},merge=True)
@@ -102,33 +101,65 @@ def make():
     if not session.get('username'):
         return redirect('/login')
     name = request.form.get('bn').lower()
-    proj = db.collection('Users').document(session.get('username')).collection('Projects').document(name)
+    proj = db.collection('Users').document(session.get('email')).collection('Projects').document(name)
     if proj.get().to_dict():
         return redirect('/library')
     proj.set({"code":"","description":request.form.get('desc')})
     return redirect(f"/edit/{name}")
+
 @app.route('/library')
 def library():
     if not session.get('username'):
         return redirect('/login')
-    lb = db.collection('Users').document(session.get('username')).collection('Projects').get()
+    lb = db.collection('Users').document(session.get('email')).collection('Projects').get()
     bangles = []
     for item in lb:
         bangles.append(item.id)
     return render_template('library.html',bangles=bangles,user=session.get('username'))
+
 @app.route('/delete')
 def delete():
     if not session.get('username'):
         return redirect('/login')
     if not session.get('project'):
         return {"message":"failed to sync: reload this page and try again"}
-    proj = db.collection('Users').document(session.get('username')).collection('Projects').document(session.get('project'))
+    proj = db.collection('Users').document(session.get('email')).collection('Projects').document(session.get('project'))
     proj.delete()
     return redirect('/library')
+
 @app.route('/account')
-def account():
+def rd():
+    return redirect('/account/password')
+
+@app.route('/account/<tp>')
+def account(tp):
+    t = tp
     if not session.get('username'):
         return redirect('/login')
-    return 'work in progress...'
+    return render_template('account.html',details=t,user=session.get('username'))
+@app.route('/changepw',methods=['POST'])
+def changepw():
+    if not session.get('username'):
+        return redirect('/login')
+    user = db.collection('Users').document(session.get('email'))
+    print(user.get().to_dict())
+    if user.get().to_dict()["password"] == request.form.get('curr'):
+        user.set({'password':request.form.get('np')},merge=True)
+    return redirect('/account/password')
+@app.route('/changeds',methods=['POST'])
+def changeds():
+    if not session.get('username'):
+        return redirect('/login')
+    user = db.collection('Users').document(session.get('email'))
+    user.set({"name":request.form.get('ds')},merge=True)
+    return redirect('/account/username')
+@app.route('/delacc',methods=['POST'])
+def delacc():
+    if not session.get('username'):
+        return redirect('/login')
+    user = db.collection('Users').document(session.get('email'))
+    user.delete()
+    session.clear()
+    return redirect('/')
 if __name__ == '__main__':
     app.run()

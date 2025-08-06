@@ -2,6 +2,7 @@ body{
     margin:0;
     background:#1C1C1C;
     font-family:helvetica;
+    color:white;
 }
 .main{
     display:flex;
@@ -105,4 +106,40 @@ div button{
 #new div{
     display:flex;
     gap:20px;
+}
+#cop{
+    color:#ffd700;
+    font-size:14px;
+    cursor:pointer;
+}
+.warning{
+    color:#ffd700;
+    font-size:16px;
+}
+.lm{
+    display:flex;
+    border:1px white solid;
+    width:1100px;
+    height:600px;
+    margin-left:auto;
+    margin-right: auto;
+}
+.lk{
+    display:flex;
+    flex-direction: column;
+    border-right: 1px white solid;
+    width:40%;
+}
+.fm{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    width:60%;
+    height:100%;
+}
+.fm form{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
 }

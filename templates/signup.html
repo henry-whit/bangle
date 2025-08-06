@@ -20,11 +20,12 @@
     <div class="main">
         <h1>Sign up for free</h1>
         <form action="/signup" method="post">
+            <label for="dsp">Display name</label>
+            <input minlength="2" maxlength="18" name="dsp" type="text" value required>
             <label for="email">Email</label>
             <input name="email" type="email" value required>
-            <label for="password">Password</label>
+            <label for="password">Password <span id = 'cop' onclick="navigator.clipboard.writeText(document.getElementById('pass').value)">Copy Password</span></label>
             <input id = 'pass' name="password" type="password" value required>
-            <button onclick="navigator.clipboard.writeText(document.getElementById('pass').value)">Copy password</button>
             <button type="submit">Sign up</button>
         </form>
     </div>

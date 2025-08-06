@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
+    <title>Account</title>
+</head>
+<body>
+    <header>
+        <div style = 'cursor: pointer;' onclick = "location.href = '/home'"  class="il">
+            <img height="30px" src="{{url_for('static',filename='gr.png')}}" alt="Bangle logo">
+            <h2>Bangle</h2>
+        </div>
+        <nav id = "la">
+            <a href="/library">Library</a>
+            <a href="/account">{{user}}</a>
+            <a href="/logout">Sign out</a>
+        </nav>
+    </header>
+    <div class="main">
+        <h1>My account</h1>
+        <div class="lm">
+            <div class="lk">
+                <button onclick="location.href='/account/username'">Change display name</button>
+                <button onclick="location.href='/account/password'">Change password</button>
+                <button onclick="location.href='/account/delete'">Delete account</button>
+            </div>
+            <div class="fm">
+                <form method="post" style = 'display: flex;' id="cpw" action="/changepw" method="post">
+                    <h2>Change password</h2>
+                    <label for="curr">Current password</label>
+                    <input name="curr" type="password">
+                    <label for="curr">New password</label>
+                    <input name="np" type="password">
+                    <button type="submit">Change password</button>
+                </form>
+                <form method="post" style = 'display: none;' id="cds" action="/changeds">
+                    <h2>Change display name</h2>
+                    <p>Current display name: {{user}}</p>
+                    <label for="ds">New display name</label>
+                    <input name="ds" type="text">
+                    <button type="submit">Change name</button>
+                </form>
+                <form method="post" style = 'display: none;' id="del" action="/delacc">
+                    <h2>Delete account</h2>
+                    <p>This will permenantly delete your account.</p>
+                    <button style = 'background:#AA222D;' type = 'submit'>Delete account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        console.log('hello');
+        t = "{{details}}";
+        console.log(t)
+        document.getElementById('cpw').style.display = 'none';
+        if(t === "password"){
+            document.getElementById('cpw').style.display = 'flex';
+        } else if(t === "username"){
+            document.getElementById('cds').style.display = 'flex';
+        } else if(t === "delete"){
+            document.getElementById('del').style.display = 'flex';
+        }
+        if ("{{err}}" != ""){
+            alert("{{err}}");
+        }
+    </script>
+</body>
+</html>
