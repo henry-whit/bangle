@@ -11,7 +11,7 @@ h1,h2,h3{
     color:#ffd700;
     text-align:center;
 }
-p{
+p,label{
     color:white;
     text-align:center;
 }
@@ -59,19 +59,6 @@ header a{
     justify-content:center;
     align-items: center;
 }
-.quickstart{
-    display:flex;
-    margin-left:auto;
-    margin-right:auto;
-    gap:10px;
-}
-.quickstart div{
-    cursor:pointer;
-    background:#000C29;
-    border:1px white solid;
-    width:300px;
-    margin:10px;
-}
 .ct{
     display:flex;
     justify-content: center;
@@ -82,4 +69,36 @@ header a{
     text-decoration: none;
     color:white;
     margin:10px;
+}
+div button{
+    font-size:18px;
+    background:#000C29;
+    color:white;
+    border:1px white solid;
+    cursor:pointer;
+    margin:10px;
+}
+input{
+    width:250px;
+    height:25px;
+    background:#000C29;
+    color:white;
+    border:1px white solid;
+    font-size:16px;
+    margin:5px;
+}
+.dv{
+    margin-left: auto;
+    margin-right: auto;
+}
+.results{
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    margin-left:auto;
+    margin-right: auto;
+}
+.results div{
+    border:1px white solid;
+    margin:10px;
+    padding:10px;
 }

@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
-    <title>Bangle library</title>
+    <title>{{username}} on bangle</title>
 </head>
 <body>
     <header>
@@ -19,21 +18,13 @@
         </nav>
     </header>
     <div class="main">
-        <h1>Bangles</h1>
-        <div style = 'margin-left:auto; margin-right:auto;' onclick="document.getElementById('new').style.display='flex'"><button>New bangle</button></div>
-        <div id = 'bgs' class="bangles"></div>
-    </div>
-    <form action="/makesite" id="new" method="post">
-        <div>
-            <h2>New bangle</h2>
-            <button onclick="document.getElementById('new').style.display='none'">Close</button>
+        <h1>{{username}}</h1>
+        <h2>{{email}}</h2>
+        <h2>Bangles</h2>
+        <div id="bgs" class="bangles">
+            
         </div>
-        <label for="bn">Name</label>
-        <input maxlength="20" name="bn" type="text" value required>
-        <label for="desc">Description</label>
-        <input maxlength="40" type="text" name = "desc" value required>
-        <button type="submit">Create</button>
-    </form>
+    </div>
     <script>
         let bgs = "{{bangles}}";
         bgs = JSON.parse(bgs.replace(/&#39;/g, '"'));
@@ -54,7 +45,8 @@
                 mc.appendChild(idv);
                 mc.appendChild(tt);
                 mc.onclick = function(){
-                    location.href = `https://bangle-app-fxgs.onrender.com/edit/${bgs[b]}`;
+                    email = "{{email}}"
+                    location.href = `https://bangle-app-fxgs.onrender.com/sites/${email}/${bgs[b]}`;
                 }
                 document.getElementById('bgs').appendChild(mc);
             }

@@ -25,16 +25,11 @@
             <div class="recent" id = "rct"></div>
             <div class="ct"><a class="btt" href="/library">All bangles</a></div>
         </div>
-        <h1>Quick start</h1>
-        <div class="quickstart">
-            <div id="collab">
-                <h2>New collab</h2>
-                <p>Collaborate with another user on a project.</p>
-            </div>
-            <div id = "collab">
-                <h2>New Basic</h2>
-                <p>A basic HTML project with free hosting, forever.</p>
-            </div>
+        <h1>Search for a user</h1>
+        <label for="user">Email or username</label>
+        <div class="dv"><input id="query" type="text" name="user"></div>
+        <div class="dv"><button onclick="search()">Search</button></div>
+        <div id="res" class="results">
         </div>
     </div>
     <script>
@@ -57,6 +52,36 @@
                 location.href = `https://bangle-app-fxgs.onrender.com/edit/${ban}`
             }
             document.getElementById('rct').appendChild(dv);
+        }
+        function search(){
+            fetch(`/search?query=${document.getElementById('query').value}`,{method:'GET',headers:{"Content-Type": "application/json"}})
+            .then(res=>res.json())
+            .then(data=>{
+                load_queries(data);
+            })
+            .catch(error =>{
+                alert(error);
+            })
+        }
+        function load_queries(qrs){
+            console.log(qrs)
+            document.getElementById('res').innerHTML = '';
+            for(const q of qrs){
+                const sq = document.createElement('div');
+                const nm = document.createElement('h2');
+                nm.textContent = q["name"];
+                const eml = document.createElement('p');
+                eml.textContent = q["email"];
+                const bt = document.createElement('button');
+                bt.textContent = 'View profile';
+                bt.onclick = function(){
+                    location.href = `http://localhost:5000/users/${q["email"]}`;
+                }
+                sq.appendChild(nm);
+                sq.appendChild(eml);
+                sq.appendChild(bt);
+                document.getElementById('res').appendChild(sq);
+            }
         }
     </script>
 </body>
